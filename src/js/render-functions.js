@@ -12,7 +12,7 @@ export const createMarkup = images => {
       }) => `
       <li class="gallery-item">
         <a class="gallery-link" href="${largeImageURL}">
-          <img class="gallery-image" src="${webformatURL}" alt="${tags}" width="360" />
+          <img class="gallery-image" src="${webformatURL}" alt="${tags}" />
         </a>
         <div class="thumb-block">
           <div class="block"><h2 class="title">Likes</h2><p class="amount">${likes}</p></div>
