@@ -27,10 +27,9 @@ function hideLoader() {
 
 function updateGradient(hasImages) {
   const newBackground = hasImages
-    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url("/img/1.webp")`
-    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url("/img/1.webp")`;
+    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url("/goit-js-hw-12/img/1.webp")`
+    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url("/goit-js-hw-12/img/1.webp")`;
   document.body.style.backgroundImage = newBackground;
-  console.log('Background set to:', newBackground);
 }
 
 function scrollByTwoRows() {
