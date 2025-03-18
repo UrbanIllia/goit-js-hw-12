@@ -26,9 +26,11 @@ function hideLoader() {
 }
 
 function updateGradient(hasImages) {
-  document.body.style.backgroundImage = hasImages
-    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url(/img/1.webp)`
-    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url(/img/1.webp)`;
+  const newBackground = hasImages
+    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url("/img/1.webp")`
+    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url("/img/1.webp")`;
+  document.body.style.backgroundImage = newBackground;
+  console.log('Background set to:', newBackground); // Отладка
 }
 
 async function onSearch(event) {
