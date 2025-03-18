@@ -12,7 +12,7 @@ const btnLoadMore = document.querySelector('.btn2');
 let page = 1;
 let query = '';
 const perPage = 15;
-let isScrolling = false; // Флаг для предотвращения множественных прокруток
+let isScrolling = false;
 
 loader.style.display = 'none';
 btnLoadMore.classList.add('is-hidden');
@@ -36,13 +36,13 @@ function updateGradient(hasImages) {
 function scrollByTwoRows() {
   const firstItem = document.querySelector('.gallery-item');
   if (firstItem && !isScrolling) {
-    const itemHeight = firstItem.getBoundingClientRect().height; // 275px
-    isScrolling = true; // Устанавливаем флаг
+    const itemHeight = firstItem.getBoundingClientRect().height;
+    isScrolling = true;
     window.scrollBy({
-      top: 2 * itemHeight, // Прокручиваем на две высоты (550px)
+      top: 2 * itemHeight,
       behavior: 'smooth',
     });
-    // Сбрасываем флаг после завершения прокрутки (примерно через 500ms)
+
     setTimeout(() => {
       isScrolling = false;
     }, 500);
@@ -139,10 +139,8 @@ async function onLoadMore(event) {
   }
 }
 
-// Обработчик события скроллинга
 window.addEventListener('wheel', event => {
   if (event.deltaY > 0) {
-    // Прокрутка вниз
     scrollByTwoRows();
   }
 });
