@@ -13,7 +13,7 @@ export async function getPictures(query, page = 1) {
         orientation: 'horizontal',
         safesearch: true,
         per_page: 15,
-        page: page, // Добавляем параметр страницы
+        page: page,
       },
     });
     return response.data;

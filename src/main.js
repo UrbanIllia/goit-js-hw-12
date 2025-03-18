@@ -9,13 +9,13 @@ const listImages = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 const btnLoadMore = document.querySelector('.btn2');
 
-// Глобальные переменные для пагинации и запроса
 let page = 1;
 let query = '';
-const perPage = 20; // Соответствует параметру per_page в getPictures
+const perPage = 15;
+let isScrolling = false; // Флаг для предотвращения множественных прокруток
 
 loader.style.display = 'none';
-btnLoadMore.classList.add('is-hidden'); // Скрываем кнопку изначально
+btnLoadMore.classList.add('is-hidden');
 
 function showLoader() {
   loader.style.display = 'block';
@@ -30,17 +30,33 @@ function updateGradient(hasImages) {
     ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url("/img/1.webp")`
     : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url("/img/1.webp")`;
   document.body.style.backgroundImage = newBackground;
-  console.log('Background set to:', newBackground); // Отладка
+  console.log('Background set to:', newBackground);
+}
+
+function scrollByTwoRows() {
+  const firstItem = document.querySelector('.gallery-item');
+  if (firstItem && !isScrolling) {
+    const itemHeight = firstItem.getBoundingClientRect().height; // 275px
+    isScrolling = true; // Устанавливаем флаг
+    window.scrollBy({
+      top: 2 * itemHeight, // Прокручиваем на две высоты (550px)
+      behavior: 'smooth',
+    });
+    // Сбрасываем флаг после завершения прокрутки (примерно через 500ms)
+    setTimeout(() => {
+      isScrolling = false;
+    }, 500);
+  }
 }
 
 async function onSearch(event) {
   event.preventDefault();
   listImages.innerHTML = '';
   showLoader();
-  btnLoadMore.classList.add('is-hidden'); // Скрываем кнопку перед новым поиском
+  btnLoadMore.classList.add('is-hidden');
 
   query = event.target.elements['search-text'].value.trim();
-  page = 1; // Сбрасываем страницу на первую
+  page = 1;
 
   if (!query) {
     iziToast.error({
@@ -62,13 +78,13 @@ async function onSearch(event) {
         message:
           'Sorry, there are no images matching your search query. Please try again!',
       });
-      updateGradient(false); // Возвращаем исходный градиент
+      updateGradient(false);
       return;
     }
 
     listImages.innerHTML = createMarkup(data.hits);
     randomizeGalleryItems();
-    updateGradient(true); // Устанавливаем плотный градиент
+    updateGradient(true);
 
     const lightbox = new SimpleLightbox('.gallery a', {
       captions: true,
@@ -77,7 +93,6 @@ async function onSearch(event) {
     });
     lightbox.refresh();
 
-    // Проверяем, есть ли ещё изображения для загрузки
     if (data.totalHits > page * perPage) {
       btnLoadMore.classList.remove('is-hidden');
     }
@@ -86,7 +101,7 @@ async function onSearch(event) {
   } catch (error) {
     hideLoader();
     iziToast.error({ title: 'Error', message: error.message });
-    updateGradient(false); // Возвращаем исходный градиент при ошибке
+    updateGradient(false);
   }
 }
 
@@ -109,7 +124,7 @@ async function onLoadMore(event) {
 
     listImages.insertAdjacentHTML('beforeend', createMarkup(data.hits));
     randomizeGalleryItems();
-    updateGradient(true); // Поддерживаем плотный градиент
+    updateGradient(true);
 
     const lightbox = new SimpleLightbox('.gallery a', {
       captions: true,
@@ -120,9 +135,17 @@ async function onLoadMore(event) {
   } catch (error) {
     hideLoader();
     iziToast.error({ title: 'Error', message: error.message });
-    updateGradient(false); // Возвращаем исходный градиент при ошибке
+    updateGradient(false);
   }
 }
+
+// Обработчик события скроллинга
+window.addEventListener('wheel', event => {
+  if (event.deltaY > 0) {
+    // Прокрутка вниз
+    scrollByTwoRows();
+  }
+});
 
 formSearch.addEventListener('submit', onSearch);
 btnLoadMore.addEventListener('click', onLoadMore);

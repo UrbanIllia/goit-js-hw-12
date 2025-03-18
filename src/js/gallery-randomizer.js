@@ -1,16 +1,11 @@
 function randomizeGalleryItems() {
   const galleryItems = document.querySelectorAll('.gallery-item');
-  const sizes = ['size-small', 'size-wide', 'size-tall'];
 
   galleryItems.forEach(item => {
-    item.classList.forEach(className => {
-      if (className.startsWith('size-')) {
-        item.classList.remove(className);
-      }
-    });
+    item.style.width = '';
 
-    const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
-    item.classList.add(randomSize);
+    const randomWidth = Math.floor(Math.random() * (450 - 275 + 1)) + 275;
+    item.style.width = `${randomWidth}px`;
   });
 }
 
