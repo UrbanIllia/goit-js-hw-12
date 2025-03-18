@@ -3,8 +3,8 @@ body {
   padding: 0 140px;
   background-color: #8390bf;
   background-image: linear-gradient(
-      rgba(46, 47, 66, 0.3),
-      rgba(46, 47, 66, 0.3)
+      rgba(46, 47, 66, 0.6),
+      rgba(46, 47, 66, 0.6)
     ),
     url(/img/1.webp);
   background-attachment: fixed;

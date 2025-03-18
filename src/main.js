@@ -25,14 +25,6 @@ function hideLoader() {
   loader.style.display = 'none';
 }
 
-function updateGradient(hasImages) {
-  const newBackground = hasImages
-    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url("/img/1.webp")`
-    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url("/img/1.webp")`;
-  document.body.style.backgroundImage = newBackground;
-  console.log('Background set to:', newBackground);
-}
-
 function scrollByTwoRows() {
   const firstItem = document.querySelector('.gallery-item');
   if (firstItem && !isScrolling) {
@@ -78,13 +70,11 @@ async function onSearch(event) {
         message:
           'Sorry, there are no images matching your search query. Please try again!',
       });
-      updateGradient(false);
-      return;
+      return; // Убрали updateGradient(false)
     }
 
     listImages.innerHTML = createMarkup(data.hits);
     randomizeGalleryItems();
-    updateGradient(true);
 
     const lightbox = new SimpleLightbox('.gallery a', {
       captions: true,
@@ -101,7 +91,6 @@ async function onSearch(event) {
   } catch (error) {
     hideLoader();
     iziToast.error({ title: 'Error', message: error.message });
-    updateGradient(false);
   }
 }
 
@@ -124,7 +113,6 @@ async function onLoadMore(event) {
 
     listImages.insertAdjacentHTML('beforeend', createMarkup(data.hits));
     randomizeGalleryItems();
-    updateGradient(true);
 
     const lightbox = new SimpleLightbox('.gallery a', {
       captions: true,
@@ -135,7 +123,6 @@ async function onLoadMore(event) {
   } catch (error) {
     hideLoader();
     iziToast.error({ title: 'Error', message: error.message });
-    updateGradient(false);
   }
 }
 
