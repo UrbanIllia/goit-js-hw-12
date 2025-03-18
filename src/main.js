@@ -27,8 +27,8 @@ function hideLoader() {
 
 function updateGradient(hasImages) {
   document.body.style.backgroundImage = hasImages
-    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url(../img/Urban-4.png.webp)`
-    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url(../img/Urban-4.png.webp)`;
+    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url(../img/Urban-4.png)`
+    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url(../img/Urban-4.png)`;
 }
 
 async function onSearch(event) {
