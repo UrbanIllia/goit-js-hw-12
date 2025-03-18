@@ -26,10 +26,11 @@ function hideLoader() {
 }
 
 function updateGradient(hasImages) {
+  const timestamp = Date.now(); // Уникальная метка времени
   const gradient = hasImages
     ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8))`
     : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3))`;
-  document.body.style.background = `${gradient}, url("/goit-js-hw-12/img/1.webp") fixed no-repeat`;
+  document.body.style.background = `${gradient}, url("/goit-js-hw-12/img/1.webp?t=${timestamp}") fixed no-repeat`;
   document.body.style.backgroundSize = 'cover';
 }
 
