@@ -26,12 +26,11 @@ function hideLoader() {
 }
 
 function updateGradient(hasImages) {
-  const timestamp = Date.now(); // Уникальная метка времени
-  const gradient = hasImages
-    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8))`
-    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3))`;
-  document.body.style.background = `${gradient}, url("https://urbanillia.github.io/goit-js-hw-12/img/1.webp") fixed no-repeat`;
-  document.body.style.backgroundSize = 'cover';
+  const newBackground = hasImages
+    ? `linear-gradient(rgba(46, 47, 66, 0.8), rgba(46, 47, 66, 0.8)), url("/img/1.webp")`
+    : `linear-gradient(rgba(46, 47, 66, 0.3), rgba(46, 47, 66, 0.3)), url("/img/1.webp")`;
+  document.body.style.backgroundImage = newBackground;
+  console.log('Background set to:', newBackground);
 }
 
 function scrollByTwoRows() {
