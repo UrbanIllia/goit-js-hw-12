@@ -70,7 +70,7 @@ async function onSearch(event) {
         message:
           'Sorry, there are no images matching your search query. Please try again!',
       });
-      return; // Убрали updateGradient(false)
+      return;
     }
 
     listImages.innerHTML = createMarkup(data.hits);
